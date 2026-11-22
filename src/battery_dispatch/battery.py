@@ -44,9 +44,4 @@ class Battery:
         if not (0 <= self.soc_kwh <= self.capacity_kwh):
             raise ValueError("soc_kwh moet tussen 0 en capacity_kwh liggen")
 
-    def test_full_cycle_round_trip_efficiency():
-        battery = Battery(capacity_kwh=100, max_power_kw=50)
-        battery.charge(power_kw=10, hours=1)
-        delivered_kwh = battery.discharge(power_kw=10, hours=1)
-        assert delivered_kwh == pytest.approx(10 * 0.95 * 0.95)
-        assert battery.soc_kwh == pytest.approx(0)
+

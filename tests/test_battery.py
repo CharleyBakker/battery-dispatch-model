@@ -33,3 +33,10 @@ def test_negative_power_raises():
     battery = Battery(capacity_kwh=100, max_power_kw=50)
     with pytest.raises(ValueError):
         battery.charge(power_kw=-5)
+
+def test_full_cycle_round_trip_efficiency():
+    battery = Battery(capacity_kwh=100, max_power_kw=50)
+    battery.charge(power_kw=10, hours=1)
+    delivered_kwh = battery.discharge(power_kw=10, hours=1)
+    assert delivered_kwh == pytest.approx(10 * 0.95 * 0.95)
+    assert battery.soc_kwh == pytest.approx(0)
