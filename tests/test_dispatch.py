@@ -25,7 +25,20 @@ def test_input_battery_is_not_modified():
     threshold_dispatch(battery, [20, 100], low=30, high=90)
     assert battery.soc_kwh == 0
 
+
 def test_low_above_high_raises():
     battery = Battery(capacity_kwh=100, max_power_kw=50)
     with pytest.raises(ValueError):
         threshold_dispatch(battery, [20, 100], low=90, high=30)
+
+
+def test_low_equal_to_high_raises():
+    battery = Battery(capacity_kwh=100, max_power_kw=50)
+    with pytest.raises(ValueError):
+        threshold_dispatch(battery, [20, 100], low=50, high=50)
+
+
+def test_non_positive_hours_per_step_raises():
+    battery = Battery(capacity_kwh=100, max_power_kw=50)
+    with pytest.raises(ValueError):
+        threshold_dispatch(battery, [20, 100], low=30, high=90, hours_per_step=0)
