@@ -37,12 +37,12 @@ class Battery:
         return delivered_kwh
 
     def __post_init__(self) -> None:
-    if self.capacity_kwh <= 0 or self.max_power_kw <= 0:
-        raise ValueError("capacity_kwh en max_power_kw moeten > 0 zijn")
-    if not (0 < self.charge_efficiency <= 1 and 0 < self.discharge_efficiency <= 1):
-        raise ValueError("rendementen moeten tussen 0 (excl.) en 1 liggen")
-    if not (0 <= self.soc_kwh <= self.capacity_kwh):
-        raise ValueError("soc_kwh moet tussen 0 en capacity_kwh liggen")
+        if self.capacity_kwh <= 0 or self.max_power_kw <= 0:
+            raise ValueError("capacity_kwh en max_power_kw moeten > 0 zijn")
+        if not (0 < self.charge_efficiency <= 1 and 0 < self.discharge_efficiency <= 1):
+            raise ValueError("rendementen moeten tussen 0 (excl.) en 1 liggen")
+        if not (0 <= self.soc_kwh <= self.capacity_kwh):
+            raise ValueError("soc_kwh moet tussen 0 en capacity_kwh liggen")
 
     def test_full_cycle_round_trip_efficiency():
         battery = Battery(capacity_kwh=100, max_power_kw=50)
