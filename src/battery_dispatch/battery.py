@@ -43,5 +43,3 @@ class Battery:
             raise ValueError("rendementen moeten tussen 0 (excl.) en 1 liggen")
         if not (0 <= self.soc_kwh <= self.capacity_kwh):
             raise ValueError("soc_kwh moet tussen 0 en capacity_kwh liggen")
-
-
